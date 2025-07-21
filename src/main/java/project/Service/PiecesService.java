@@ -35,6 +35,10 @@ public class PiecesService {
         return piecesRepository.findAll();
     }
 
+    public List<Pieces> GetPiecesContaining(String str){
+        return GetPieces().stream().filter(p->p.getDescription().toLowerCase().contains(str.toLowerCase())).toList();
+    }
+
 
     //POSTMETHODS
     public ResponseEntity<APIResponse<Pieces>> AddPiece(Pieces p){

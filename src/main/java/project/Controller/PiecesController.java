@@ -1,6 +1,7 @@
 package project.Controller;
 
 import lombok.AllArgsConstructor;
+import org.aspectj.weaver.ast.Literal;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.Service.PiecesService;
@@ -22,6 +23,11 @@ public class PiecesController {
         return piecesService.GetPieces();
     }
 
+    @GetMapping("/getbysubstring/{str}")
+    public List<Pieces> GetBySubString(@PathVariable String str){
+        return piecesService.GetPiecesContaining(str);
+    }
+
 
 
     //POSTMETHODS
@@ -29,6 +35,7 @@ public class PiecesController {
     public ResponseEntity<APIResponse<Pieces>> AddPiece(@RequestBody Pieces p){
         return piecesService.AddPiece(p);
     }
+
 
     //PUTMETHODS
     @PutMapping("/UpdateStock/{Ref}/{stock}")
