@@ -26,7 +26,7 @@ public class PiecesService {
                     .body(new APIResponse<>("Echec operation"));
         }
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new APIResponse<>(P));
+                .body(new APIResponse<>(savedPiece));
 
     }
 
@@ -35,8 +35,19 @@ public class PiecesService {
         return piecesRepository.findAll();
     }
 
-    public List<Pieces> GetPiecesContaining(String str){
-        return GetPieces().stream().filter(p->p.getDescription().toLowerCase().contains(str.toLowerCase())).toList();
+    public ResponseEntity<APIResponse<List<Pieces>>> GetPiecesContaining(String str){
+        List<Pieces> result=GetPieces().stream().filter(p->p.getDescription().toLowerCase().contains(str.toLowerCase())).toList();
+        if(result.isEmpty())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIResponse<>("No matching part"));
+        return ResponseEntity.ok().body(new APIResponse<>(result));
+    }
+
+
+    public ResponseEntity<APIResponse<List<Pieces>>> GetByArticleRef(String str){
+        List<Pieces> result=GetPieces().stream().filter(p->p.getArticle().toLowerCase().contains(str.toLowerCase())).toList();
+        if(result.isEmpty())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIResponse<>("No matching part"));
+        return ResponseEntity.ok().body(new APIResponse<>(result));
     }
 
 

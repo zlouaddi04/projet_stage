@@ -23,9 +23,14 @@ public class PiecesController {
         return piecesService.GetPieces();
     }
 
-    @GetMapping("/getbysubstring/{str}")
-    public List<Pieces> GetBySubString(@PathVariable String str){
+    @GetMapping("/getbyname/{str}")
+    public ResponseEntity<APIResponse<List<Pieces>>> GetBySubString(@PathVariable String str){
         return piecesService.GetPiecesContaining(str);
+    }
+
+    @GetMapping("/getbyRef/{str}")
+    public ResponseEntity<APIResponse<List<Pieces>>> GetByRef(@PathVariable String str){
+        return piecesService.GetByArticleRef(str);
     }
 
 
