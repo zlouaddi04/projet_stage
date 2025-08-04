@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
+@CrossOrigin(origins = {"http://localhost:3000","http://127.0.0.1:3000"})
 public class UserController {
     final UserService userService;
 
@@ -39,4 +40,12 @@ public class UserController {
         return userService.AddUser(user);
     }
 
+
+    //DELETEMETHODS
+
+    @DeleteMapping("/delete/{username}")
+    public ResponseEntity<APIResponse<User>> DeleteUser(@PathVariable String username){
+        return  userService.DeleteUser(username);
+    }
 }
+

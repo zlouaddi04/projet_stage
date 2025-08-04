@@ -81,4 +81,23 @@ public class UserService {
     }
 
 
+    //DELETEMETHODS
+    public ResponseEntity<APIResponse<User>> DeleteUser(String username){
+        Optional<User> optionalUser=userRepository.findByUsername(username);
+        if (optionalUser.isEmpty())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIResponse<>("User Not Found"));
+
+        try {
+            userRepository.delete(optionalUser.get());
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new APIResponse<>("Echec operation"));
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new APIResponse<>(optionalUser.get()));
+
+    }
+
+
 }

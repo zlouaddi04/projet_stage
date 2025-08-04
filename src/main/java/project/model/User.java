@@ -19,7 +19,7 @@ public class User {
     private Long ID;
 
     @Column(unique = true,nullable = false)
-    @JsonProperty("user")
+    @JsonProperty("name")
     private String username;
 
     @Column(nullable = false)

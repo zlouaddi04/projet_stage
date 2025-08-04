@@ -84,4 +84,16 @@ public class PiecesService {
         return SaveEntity(p);
     }
 
+
+    public ResponseEntity<APIResponse<Pieces>> ModifierEmplacement(String REF,String newEmplacement){
+        Optional<Pieces> optionalPiece=piecesRepository.findByArticle(REF);
+        if (optionalPiece.isEmpty())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new APIResponse<>("Piece Introuvable"));
+        Pieces p=optionalPiece.get();
+        p.setEmplacement(newEmplacement);
+        return SaveEntity(p);
+
+    }
+
 }
