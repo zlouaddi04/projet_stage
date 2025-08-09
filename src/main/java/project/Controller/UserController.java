@@ -2,6 +2,7 @@ package project.Controller;
 
 import lombok.AllArgsConstructor;
 import org.hibernate.metamodel.internal.AbstractPojoInstantiator;
+import org.hibernate.sql.exec.spi.StandardEntityInstanceResolver;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.Service.UserService;
@@ -40,6 +41,16 @@ public class UserController {
         return userService.AddUser(user);
     }
 
+
+    //PUTMETHODS
+
+    @PutMapping("/resetpassword/{name}/{newpassword}")
+    public ResponseEntity<APIResponse<User>> ResetPassword(
+            @PathVariable String name,
+            @PathVariable String newpassword
+            ){
+        return userService.ResetPassword(name,newpassword);
+    }
 
     //DELETEMETHODS
 

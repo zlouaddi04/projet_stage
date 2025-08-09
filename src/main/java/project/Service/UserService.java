@@ -80,6 +80,26 @@ public class UserService {
         return SaveEntity(user);
     }
 
+    //PUTMETHODS
+
+    public ResponseEntity<APIResponse<User>> ResetPassword(String name,String newPassword){
+        Optional<User> optionalUser=userRepository.findByUsername(name);
+        if (optionalUser.isEmpty())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIResponse<>("User Not Found"));
+        User user=optionalUser.get();
+        user.setPassword(newPassword);
+        try {
+            userRepository.save(user);
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new APIResponse<>("Echec operation"));
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new APIResponse<>(user));
+
+    }
+
 
     //DELETEMETHODS
     public ResponseEntity<APIResponse<User>> DeleteUser(String username){

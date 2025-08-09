@@ -44,12 +44,19 @@ public class PiecesController {
 
 
     //PUTMETHODS
-    @PutMapping("/UpdateStock/{Ref}/{stock}")
-    public ResponseEntity<APIResponse<Pieces>> UpdateStock(
-            @PathVariable String Ref,
-            @PathVariable Long stock
+    @PutMapping("/Update")
+    public ResponseEntity<APIResponse<Pieces>> UpdatePiece(
+            @RequestBody Pieces piece
     ){
-        return piecesService.ModifierStock(Ref,stock) ;
+        return piecesService.UpdatePiece(piece) ;
+    }
+
+    //DELETEMETHODS
+    @DeleteMapping("/delete/{Article}")
+    public ResponseEntity<APIResponse<Pieces>> DeleteItem(
+            @PathVariable String Article
+    ){
+        return piecesService.DeletePiece(Article);
     }
 
 }

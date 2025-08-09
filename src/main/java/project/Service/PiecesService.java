@@ -96,4 +96,32 @@ public class PiecesService {
 
     }
 
+    public ResponseEntity<APIResponse<Pieces>> UpdatePiece(Pieces p){
+        Optional<Pieces> optionalPieces=piecesRepository.findByArticle(p.getArticle());
+        if (optionalPieces.isEmpty())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new APIResponse<>("Item not found"));
+        Pieces piece=optionalPieces.get();
+        p.setId(piece.getId());
+        return SaveEntity(p);
+    }
+    //DELETEMETHODS
+
+    public ResponseEntity<APIResponse<Pieces>> DeletePiece(String REF){
+        Optional<Pieces> optionalPiece=piecesRepository.findByArticle(REF);
+        if (optionalPiece.isEmpty())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new APIResponse<>("Item Not Found"));
+
+        Pieces p=optionalPiece.get();
+        try {
+            piecesRepository.delete(p);
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new APIResponse<>("Echec operation"));
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new APIResponse<>(p));
+
+    }
 }
