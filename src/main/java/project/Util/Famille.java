@@ -1,0 +1,5 @@
+package project.Util;
+
+public enum Famille {
+    ROULEMENT,ACCOUPLEMENT,COURROIE,PALIER,CONTACTEUR,HUILE,AUTRE
+}

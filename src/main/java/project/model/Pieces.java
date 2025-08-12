@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.boot.autoconfigure.web.WebProperties;
+import project.Util.Famille;
+import project.Util.Service;
 
 import java.util.Objects;
 
@@ -47,6 +49,14 @@ public class Pieces {
     @Column(columnDefinition = "VARCHAR(20)")
     @JsonProperty("unite")
     private String Unite_Mesure;
+
+    @Enumerated(EnumType.STRING)
+    @JsonProperty("famille")
+    private Famille famille;
+
+    @Enumerated(EnumType.STRING)
+    @JsonProperty("service")
+    private Service service;
 
     @PrePersist
     public void prePersist() {
