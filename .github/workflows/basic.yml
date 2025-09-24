@@ -1,0 +1,22 @@
+name: Hello-world
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+#jobs definition
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Say-hello
+        run: echo "hello github"
+
+
+
